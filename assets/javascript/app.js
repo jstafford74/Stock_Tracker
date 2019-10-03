@@ -81,14 +81,11 @@ $(document.body).on("click", ".newTicker", function () {
 
             // storing the data from the AJAX request in the results variable
             // var results = response.data;
-            mktSummResults = mktSummResponse.chart.result[0].meta.symbol;
-            console.log(mktSummResults);
+            mktSummResults = mktSummResponse.marketSummaryResponse.result[1].regularMarketChange.fmt;
+            console.log("DJI change today: " + mktSummResults);
 
             // Identifying output area for GIFs (used to distinguish between the main area and the favorites area)
             tickerDestDiv = "tickerOutput";
-
-            // Upload GIF and select details to the DOM
-            populateDiv(mktSummResults, tickerDestDiv);
         });
 
     // End of market summary data API
@@ -120,126 +117,111 @@ $(document.body).on("click", ".newTicker", function () {
 
             // Identifying output area for GIFs (used to distinguish between the main area and the favorites area)
             tickerDestDiv = "tickerOutput";
-
             // Upload GIF and select details to the DOM
-            populateDiv(chartResults, tickerDestDiv);
+            populateDiv(mktSummResults, chartResults, tickerDestDiv);
         });
 });
 
 
 // Writing the data selected to the DOM
-function populateDiv(results, destDiv) {
+function populateDiv(mktSummResults, chartResults, destDiv) {
 
-    // Clear favorites div before populating (to ensure no duplicates are displayed)
-    if (destDiv === "favOutput") {
-        $("#favOutput").html("");
-    }
+    // // Clear favorites div before populating (to ensure no duplicates are displayed)
+    // if (destDiv === "favOutput") {
+    //     $("#favOutput").html("");
+    // }
 
     // Looping through each result item
-    for (var i = 0; i < results.length; i++) {
+    // for (var i = 0; i < results.length; i++) {
 
-        // Creating and storing a div tag
-        var tickerDiv = $("<div>");
+    // Creating and storing a div tag
+    var tickerDiv = $("<div>");
 
-        // Creating a paragraph tag with the result item's rating
-        var tickerP = $("<p>").text("Title: " + results[i].title);
-        tickerP.append("<br/>" + "Rating: " + results[i].rating);
-        tickerP.append("<br/>" + "Import date: " + results[i].import_datetime);
+    // Creating a paragraph tag with the result item's rating
+    // var tickerP = $("<p>").text("Title: " + results[i].title);
+    var tickerP = $("<p>");
+    tickerP.append("Ticker: " + chartResults);
+    tickerP.append("<br/>" + "DJI change today: " + mktSummResults);
 
-        // Creating and storing an image tag
-        var tickerImg = $("<img>");
+    // // Creating and storing an image tag
+    // var tickerImg = $("<img>");
 
-        // Give tickerImg the ticker class, so it can be identified when clicked
-        tickerImg.addClass("ticker");
-        tickerImg.attr("src", results[i].images.fixed_height.url);
+    // // Give tickerImg the ticker class, so it can be identified when clicked
+    // tickerImg.addClass("ticker");
+    // tickerImg.attr("src", results[i].images.fixed_height.url);
 
-        // Adding Save to favorites button  
-        favBtn = $("<button>");
-        favBtn.addClass("favGIF");
+    // // Adding Save to favorites button  
+    // favBtn = $("<button>");
+    // favBtn.addClass("favGIF");
 
-        //Adding a Bootstrap class for formatting only
-        favBtn.addClass("btn btn-success");
-        //Add attributes to the favorite button, to be passed on if clicked
-        favBtn.attr("data-link", results[i].images.fixed_height.url);
-        favBtn.attr("data-title", results[i].title);
-        favBtn.attr("data-rating", results[i].rating);
-        favBtn.attr("data-import_datetime", results[i].import_datetime);
-        favBtn.attr("data-slug", results[i].slug);
+    // //Adding a Bootstrap class for formatting only
+    // favBtn.addClass("btn btn-success");
+    // //Add attributes to the favorite button, to be passed on if clicked
+    // favBtn.attr("data-link", results[i].images.fixed_height.url);
+    // favBtn.attr("data-title", results[i].title);
+    // favBtn.attr("data-rating", results[i].rating);
+    // favBtn.attr("data-import_datetime", results[i].import_datetime);
+    // favBtn.attr("data-slug", results[i].slug);
 
-        favBtn.text("Save as favorite");
+    // favBtn.text("Save as favorite");
 
-        // Appending the paragraph and image tag to the tickerDiv
-        tickerDiv.append(tickerP);
-        // tickerDiv.append("<br/>");
-        tickerDiv.append(tickerImg);
-        tickerDiv.append("<br/>");
+    // Appending the paragraph and image tag to the tickerDiv
+    tickerDiv.append(tickerP);
+    // tickerDiv.append("<br/>");
+    // tickerDiv.append(tickerImg);
+    // tickerDiv.append("<br/>");
 
-        //Do not show 'Save to favorites' button in Favs pane
-        if (destDiv === "favOutput") {
-        } else {
-            tickerDiv.append(favBtn);
-        }
+    // //Do not show 'Save to favorites' button in Favs pane
+    // if (destDiv === "favOutput") {
+    // } else {
+    //     tickerDiv.append(favBtn);
+    // }
 
 
 
-        // Prependng the tickerDiv to the HTML page in the "#tickerOutput" div
-        if (destDiv === "favOutput") {
-            $("#favOutput").prepend(tickerDiv);
-        } else {
-            $("#tickerOutput").prepend(tickerDiv);
-        };
-    }
+    // Prependng the tickerDiv to the HTML page in the "#tickerOutput" div
+    if (destDiv === "favOutput") {
+        $("#favOutput").prepend(tickerDiv);
+    } else {
+        $("#tickerOutput").prepend(tickerDiv);
+    };
+    // }
 }
 
-//Pause / play GIF
-$(document.body).on("click", ".ticker", function () {
-    var src = $(this).attr("src");
-    if ($(this).hasClass('playing')) {
-        //stop
-        $(this).attr('src', src.replace(/\.ticker/i, "_s.ticker"))
-        $(this).removeClass('playing');
-    } else {
-        //play
-        $(this).addClass('playing');
-        $(this).attr('src', src.replace(/\_s.ticker/i, ".ticker"))
-    }
-});
+// // Save favorites
+// $(document.body).on("click", ".favGIF", function () {
 
+//     // Display favorites pane only when a favorite has been saved
+//     document.getElementById("favsContainer").style.display = "flex";
 
-// Save favorites
-$(document.body).on("click", ".favGIF", function () {
+//     // Read attributes from 'Save to favorites' button
+//     var tickerLink = $(this).attr("data-link");
+//     var tickerTitle = $(this).attr("data-title");
+//     var tickerRating = $(this).attr("data-rating");
+//     var tickerImportDT = $(this).attr("data-import_datetime");
+//     var tickerSlug = $(this).attr("data-slug");
 
-    // Display favorites pane only when a favorite has been saved
-    document.getElementById("favsContainer").style.display = "flex";
+//     // Only add to favGIFs if not already added
+//     if (favsLog.includes(tickerSlug)) { } else {
+//         favGIFs[k] = {
+//             images: { fixed_height: { url: tickerLink } },
+//             title: tickerTitle,
+//             rating: tickerRating,
+//             importDT: tickerImportDT
+//         }
 
-    // Read attributes from 'Save to favorites' button
-    var tickerLink = $(this).attr("data-link");
-    var tickerTitle = $(this).attr("data-title");
-    var tickerRating = $(this).attr("data-rating");
-    var tickerImportDT = $(this).attr("data-import_datetime");
-    var tickerSlug = $(this).attr("data-slug");
+//         // Increment counter
+//         k++;
 
-    // Only add to favGIFs if not already added
-    if (favsLog.includes(tickerSlug)) { } else {
-        favGIFs[k] = {
-            images: { fixed_height: { url: tickerLink } },
-            title: tickerTitle,
-            rating: tickerRating,
-            importDT: tickerImportDT
-        }
+//         favsLog.push(tickerSlug);
+//         console.log("favsLog: " + favsLog);
+//     }
+// });
 
-        // Increment counter
-        k++;
+// // Play favorites
+// $(document.body).on("click", "#playFavs", function () {
+//     favDestDiv = "favOutput";
 
-        favsLog.push(tickerSlug);
-        console.log("favsLog: " + favsLog);
-    }
-});
+//     populateDiv(favGIFs, favDestDiv);
 
-// Play favorites
-$(document.body).on("click", "#playFavs", function () {
-    favDestDiv = "favOutput";
-
-    populateDiv(favGIFs, favDestDiv);
-
-});
+// });
