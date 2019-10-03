@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+
+<html lang="en-us">
+
+<head>
+
+  <meta charset="UTF-8">
+  <title>NJIB Stock Tracker</title>
+
+  <!-- Link html to CSS reset -->
+  <link rel="stylesheet" type="text/css" href="assets/css/reset.css">
+
+  <!-- Added link to the jQuery Library -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  ​
+  <!-- Link html to the Bootstrap CDN -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <!-- Link html to the CSS stylesheet -->
+  <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+
+</head>
+
+<body>
+
+  <div class="container">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <div class="col-lg-4 col-sm-12">
+        <a class="navbar-brand" href="#">
+          <h1>Stock Tracker</h1>
+        </a>
+      </div>
+      <div class="col-lg-3 col-sm-0"></div>
+      <div class="col-lg-5 col-sm-12">
+        <form class="form-inline my-2 my-lg-0">
+          <input id="searchTicker" class="form-control mr-sm-2" type="search" placeholder="Enter Stock Ticker" aria-label="Search">
+          <button id="searchBtn" class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+          <button id="clearBtn" class="btn btn-outline-success my-2 my-sm-0" type="submit">Clear</button>
+        </form>
+      </div>
+    </nav>
+  </div>
+  <br />
+  <div class="container">
+    <div id="buttonsContainer" class="card card-default">
+        <div class="row">
+            <div>Select Stock Info to Show</div>
+          </div>   
+      <div class="card-body" id="buttons-view">
+      </div>
+    </div>
+  </div>
+  <br />
+  <div class="container">
+    <div id="favsContainer" class="card card-default">
+      <div class="row">
+        <button id="playFavs"class="btn btn-success">Play Favorites</button>
+      </div>
+      <div id="favOutput" class="row"></div>
+    </div>
+  </div>
+  <br />
+  <div class="container">
+    <div id="gifOutput" class="row"></div>
+  </div>
+
+  <!--Link to game script-->
+  <script src="assets/javascript/app.js"></script>
+
+  <script type="text/javascript">
+
+  </script>
+
+
+  <!-- jQuery -->
+  <script src="https://code.jquery.com/jquery.js"></script>
+
+  <!-- Script -->
+  <script>
+
+  </script>
+
+</body>
+
+</html>

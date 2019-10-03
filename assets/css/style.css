@@ -1,0 +1,90 @@
+@import url('https://fonts.googleapis.com/css?family=Permanent+Marker&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Monoton&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Carter+One&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Aldrich|Carter+One&display=swap');
+
+header{
+    height: 120px;
+    font-family: 'Acme', sans-serif;    font-weight: bold;
+    font-size: 50px;
+    line-height: 40px;
+    color: silver;
+    text-align: left;
+    padding: 10px;
+}
+
+.navbar {
+    font-family: 'Permanent Marker', cursive;
+}
+
+h1 {
+    /* font-family: 'Monoton', cursive; */
+    font-family: 'Carter One', cursive;
+}
+
+p {
+    color: darkslategray;
+    margin: 10px;
+}
+
+body{
+    background-image: url("../images/cloth-alike.png");
+    background-repeat:repeat;
+}
+
+img {
+    margin: 10px;
+}
+
+button {
+    background-color: orange;
+    border-width: 0px;
+    margin: 10px;
+}
+
+.newGIF {
+    font-family: 'Carter One', cursive;
+}
+
+.favGIF {
+    font-family: 'Carter One', cursive;
+    margin: 20px;
+}
+
+#favOutput {
+    background-color: lightgrey;
+    margin: 20px;
+    padding: 20px;
+}
+
+#favsContainer {
+    font-family: 'Carter One', cursive;
+    padding: 20px;
+    display: none;
+}
+
+#buttonsContainer {
+    font-family: 'Carter One', cursive;
+    padding-top: 10px;
+    padding-left: 30px;
+}
+
+
+footer{
+    bottom: 0px;
+    position: fixed;
+    height: 20px;
+    width: 100%;
+    background-color: silver;
+    text-align: center;
+    font-size: 10px;
+    color: black;
+}
+
+#pressToRestart {
+    font-family: 'Acme', sans-serif;
+    position: relative;
+    top: 50px;
+    font-size: 30px; 
+    display: none;  
+}
