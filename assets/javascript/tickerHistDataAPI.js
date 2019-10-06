@@ -1,15 +1,14 @@
 function getTickerHistData(tickerData) {
 
-    var dateToday = new Date();
-    console.log(dateToday);
-    var startDate = (moment(dateToday).format ("MM")) + "/"
-    + (moment(dateToday).format ("DD")) + "/"
-    + (moment(dateToday).format ("YYYY")-1);
+    var startDate = (moment().format("MM")) + "/"
+        + (moment().format("DD")) + "/"
+        + (moment().format("YYYY") - 1);
+    // Conert to milliseconds
+    startDate = parseInt((moment(startDate) / 1000));
     console.log("startDate: " + startDate);
 
-    //Date and time right now in milliseconds (for queryURL)
-    var msDateNow = Date.now();
-    console.log(msDateNow);
+    dateNowSeconds = parseInt((moment() / 1000));
+    console.log("dateNowSeconds: " + dateNowSeconds);
 
     var priceResults = [];
     var volResults = [];
@@ -19,14 +18,16 @@ function getTickerHistData(tickerData) {
     var settings = {
         "async": true,
         "crossDomain": true,
-        // "url": "https://apidojo-yahoo-finance-v1.p.rapidapi.com/stock/v2/get-chart?interval=5m&region=US&symbol=" + tickerData + "&lang=en&range=1d",
-        "url": "https://apidojo-yahoo-finance-v1.p.rapidapi.com/stock/v2/get-historical-data?frequency=1d&filter=history&period1=1546448400&period2=1562086800&symbol=" + tickerData,
+        "url": "https://apidojo-yahoo-finance-v1.p.rapidapi.com/stock/v2/get-historical-data?frequency=1d&filter=history&period1=" + startDate + "&period2=" + dateNowSeconds + "&symbol=" + tickerData,
         "method": "GET",
         "headers": {
             "x-rapidapi-host": "apidojo-yahoo-finance-v1.p.rapidapi.com",
             "x-rapidapi-key": apiKey
         }
     }
+
+    console.log("queryURL: " + settings.url);
+
 
     $.ajax(settings).done(function (chartResponse) {
         console.log(chartResponse);
@@ -45,12 +46,12 @@ function getTickerHistData(tickerData) {
 
             var ctx = document.getElementById('myChart').getContext('2d');
 
-            for (var i = 0; i < chartResponse.prices.length; i++) {
+            for (var i = (chartResponse.prices.length - 1); i > 0; i--) {
                 priceResults.push(chartResponse.prices[i].close);
-                volResults.push(chartResponse.prices[i].volume/1000000);
-                dayDate.push(moment(chartResponse.prices[i].date).format("MMM Do YY"));
+                volResults.push(chartResponse.prices[i].volume / 1000000);
+                dayDate.push(moment((chartResponse.prices[i].date) * 1000).format("MMM Do YY"));
             }
- 
+
             console.log("priceResults: " + priceResults);
             console.log("volResults: " + volResults);
             console.log("dayDate: " + dayDate);
@@ -60,9 +61,14 @@ function getTickerHistData(tickerData) {
                 data: {
                     datasets: [{
                         label: 'Volume (mil.)',
+                        //Adding in 2nd axis
+                        yAxisID: 'B',
                         data: volResults
                     }, {
                         label: 'Stock Price (US$)',
+                        //Adding in 2nd axis
+                        yAxisID: 'A',
+
                         data: priceResults,
 
                         // Changes this dataset to become a line
@@ -70,7 +76,24 @@ function getTickerHistData(tickerData) {
                     }],
                     labels: dayDate
                 },
-                options: {}
+                options: {
+                    scales: {
+                        yAxes: [{
+                          id: 'A',
+                          type: 'linear',
+                          position: 'left',
+                        }, {
+                          id: 'B',
+                          type: 'linear',
+                          position: 'right',
+                          ticks: {
+                            // max: 1,
+                            // min: 0
+                          }
+                        }]
+                      }
+                  
+                }
             });
         });
 }
