@@ -51,6 +51,16 @@ button {
     margin: 20px;
 }
 
+#marketOutput {
+    background-color: lightgrey;
+    padding: 20px;
+}
+
+#tickerOutput {
+    background-color: lightgrey;
+    padding: 20px;
+}
+
 #favOutput {
     background-color: lightgrey;
     margin: 20px;
