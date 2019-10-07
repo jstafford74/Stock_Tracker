@@ -80,6 +80,8 @@
   <br />
   <div class="container">
     <div id="tickerOutput" class="card card-default">
+      <div class="row" id="tickerChartHeader"></div>
+      <div class="row" id="periodButtons"></div>
       <canvas id="myChart" width="200" height="200"></canvas>
     </div>
   </div>
@@ -91,6 +93,7 @@
   <script src="assets/javascript/tickerHistDataAPI.js"></script>
   <script src="assets/javascript/populateMarketDiv.js"></script>
   <script src="assets/javascript/populateTickerDiv.js"></script>
+  <script src="assets/javascript/addPeriodButtons.js"></script>
 
 
   <script type="text/javascript"></script>
@@ -99,21 +102,37 @@
   <script src="https://code.jquery.com/jquery.js"></script>
 
   <script>
+
+    var tickerData = "";
+    var marketDataPulled = false;
+
     // When the Search button is clicked...
     $(document.body).on("click", ".newTicker", function () {
-
       // Grabbing and storing the data-name property value from the button
-      var tickerData = $(this).attr("data-name");
+      tickerData = $(this).attr("data-name");
       console.log("tickerData: " + tickerData);
 
-      getMarketData();
-      getTickerHistData(tickerData);
+      // Call APIs
+      if (marketDataPulled === false) {
+        marketDataPulled = true;
+        getMarketData();
+      }
+
+      getTickerHistData(tickerData, 1);
       // getTickerData(tickerData);
     });
+
+    // When chart time-period button is clicked...
+    $(document.body).on("click", ".periodBtn", function () {
+      console.log("tickerData: " + tickerData);
+      var btnData = $(this).attr("data-name");
+      getTickerHistData(tickerData, btnData);
+    });
+
   </script>
 
-      <!-- Moment.js Reference -->
-      <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
+  <!-- Moment.js Reference -->
+  <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
 
 </body>
 

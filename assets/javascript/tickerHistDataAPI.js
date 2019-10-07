@@ -1,9 +1,11 @@
-function getTickerHistData(tickerData) {
+function getTickerHistData(tickerData, period) {
 
     var startDate = (moment().format("MM")) + "/"
         + (moment().format("DD")) + "/"
-        + (moment().format("YYYY") - 1);
-    // Conert to milliseconds
+        + (moment().format("YYYY") - period);
+    console.log("period: " + period);
+
+    // Convert to seconds
     startDate = parseInt((moment(startDate) / 1000));
     console.log("startDate: " + startDate);
 
@@ -37,17 +39,17 @@ function getTickerHistData(tickerData) {
         // After data comes back from the request
         .then(function (chartResponse) {
 
+            $("#tickerChartHeader").html(tickerData);
+            addPeriodButtons();
 
             // Identifying output area for GIFs (used to distinguish between the main area and the favorites area)
             tickerDestDiv = "tickerOutput";
-            // Upload GIF and select details to the DOM
-            // populateTickerDiv(chartResults, tickerDestDiv);
-            // tickerHistChart();
 
             var ctx = document.getElementById('myChart').getContext('2d');
 
             for (var i = (chartResponse.prices.length - 1); i > 0; i--) {
                 priceResults.push(chartResponse.prices[i].close);
+                // priceResults.push(chartResponse.prices[i].close.toPrecision(4));
                 volResults.push(chartResponse.prices[i].volume / 1000000);
                 dayDate.push(moment((chartResponse.prices[i].date) * 1000).format("MMM Do YY"));
             }
@@ -63,12 +65,13 @@ function getTickerHistData(tickerData) {
                         label: 'Volume (mil.)',
                         //Adding in 2nd axis
                         yAxisID: 'B',
+                        backgroundColor: 'darkblue',
                         data: volResults
                     }, {
                         label: 'Stock Price (US$)',
                         //Adding in 2nd axis
                         yAxisID: 'A',
-
+                        backgroundColor: 'green',
                         data: priceResults,
 
                         // Changes this dataset to become a line
@@ -82,10 +85,12 @@ function getTickerHistData(tickerData) {
                           id: 'A',
                           type: 'linear',
                           position: 'left',
+                          labelString: 'Stock Price (US$)',
                         }, {
                           id: 'B',
-                          type: 'linear',
+                        //   type: 'linear',
                           position: 'right',
+                          labelString: 'Volume',
                           ticks: {
                             // max: 1,
                             // min: 0
