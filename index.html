@@ -138,6 +138,8 @@
     var marketDataPulled = false;
     var chartsLog = ["1-1", "1-2", "1-3", "2-1", "2-2", "2-3"];
     var chartsCounter = 0;
+    var requestType = "";  //Distinguishes between new button and period switch
+    var chartsDivNum = ""; // Tracks the chartsDivRef for each set of period buttons
 
     // When the Search button is clicked...
     $(document.body).on("click", ".newTicker", function () {
@@ -151,14 +153,18 @@
         getMarketData();
       }
 
-      getTickerHistData(tickerData, 1);
+      getTickerHistData(tickerData, 1, requestType,);
     });
 
     // When chart time-period button is clicked...
     $(document.body).on("click", ".periodBtn", function () {
       console.log("tickerData: " + tickerData);
       var btnData = $(this).attr("data-name");
-      getTickerHistData(tickerData, btnData);
+      requestType = $(this).attr("data-type");
+      console.log("Button type: " + requestType);
+      chartsDivNum = $(this).attr("data-chartsdivref");
+      console.log("chartsDivNum (on index.html): " + chartsDivNum);
+      getTickerHistData(tickerData, btnData, requestType, chartsDivNum);
     });
 
   </script>

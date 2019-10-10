@@ -26,6 +26,8 @@ function renderButtons() {
         // Adding a data-attribute with a value of the ticker search at index i
         newBtn.attr("data-name", tickerCategs[i]);
         // Providing the button's text with a value of the ticker search at index i
+        // Adding a data-attribute to identify it as a period button (so will not generate new graph div)
+        newBtn.attr("data-type", "newTicker");
         newBtn.text(tickerCategs[i]);
         // Adding the button to the HTML
         $("#buttons-view").append(newBtn);

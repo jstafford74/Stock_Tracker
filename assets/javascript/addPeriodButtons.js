@@ -1,6 +1,6 @@
 function addPeriodButtons(chartsDivRef) {
 
-    $("#periodButtons").html("");
+    // $("#periodButtons").html("");
 
     addPeriodButton('1y', 1);
     addPeriodButton('2y', 2);
@@ -20,6 +20,10 @@ function addPeriodButtons(chartsDivRef) {
         newBtn.addClass("btn btn-warning");
         // Adding a data-attribute with a value of the gif search at index i
         newBtn.attr("data-name", period);
+        // Adding a data-attribute to identify it as a period button (so will not generate new graph div)
+        newBtn.attr("data-type", "periodSwitch");
+        // Add data attribute to log which chartsDiv you are working in
+        newBtn.attr("data-chartsdivref", chartsDivRef);
         // Providing the button's text with a value of the gif search at index i
         newBtn.text(period_text);
         // Adding the button to the HTML

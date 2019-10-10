@@ -1,4 +1,4 @@
-function getTickerHistData(tickerData, period) {
+function getTickerHistData(tickerData, period, requestType, chartsDivNum) {
 
     var startDate = (moment().format("MM")) + "/"
         + (moment().format("DD")) + "/"
@@ -39,16 +39,27 @@ function getTickerHistData(tickerData, period) {
         // After data comes back from the request
         .then(function (chartResponse) {
 
+            var chartsDivRef = "";
+
             // Identifying output area for GIFs (used to distinguish between the main area and the favorites area)
             // tickerDestDiv = "tickerOutput";
-            chartsCounter ++
-            if (chartsCounter > 6) {
-                chartCounter = 1;
-            } 
-            var chartsDivRef = chartsLog[chartsCounter - 1];
-            console.log("chartsDivRef: " + chartsDivRef);
 
-            $("#tickerChartHeader"+ chartsDivRef).html(tickerData);
+            if (requestType === "periodSwitch") {
+                chartsDivRef = chartsDivNum;
+            } else {
+                chartsCounter++
+                debugger;
+                if (chartsCounter > 6) {
+                    chartCounter = 1;
+                } 
+                    chartsDivRef = chartsLog[chartsCounter - 1];
+                    console.log("chartsDivRef: " + chartsDivRef);
+            }
+
+            $("#tickerChartHeader" + chartsDivRef).html(tickerData);
+
+            debugger;
+
             addPeriodButtons(chartsDivRef);
 
             var ctx = document.getElementById('myChart' + chartsDivRef).getContext('2d');
@@ -87,22 +98,22 @@ function getTickerHistData(tickerData, period) {
                 options: {
                     scales: {
                         yAxes: [{
-                          id: 'A',
-                          type: 'linear',
-                          position: 'left',
-                          labelString: 'Stock Price (US$)',
+                            id: 'A',
+                            type: 'linear',
+                            position: 'left',
+                            labelString: 'Stock Price (US$)',
                         }, {
-                          id: 'B',
-                        //   type: 'linear',
-                          position: 'right',
-                          labelString: 'Volume',
-                          ticks: {
-                            // max: 1,
-                            // min: 0
-                          }
+                            id: 'B',
+                            //   type: 'linear',
+                            position: 'right',
+                            labelString: 'Volume',
+                            ticks: {
+                                // max: 1,
+                                // min: 0
+                            }
                         }]
-                      }
-                  
+                    }
+
                 }
             });
         });
