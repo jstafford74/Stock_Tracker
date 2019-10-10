@@ -1,4 +1,4 @@
-function addPeriodButtons() {
+function addPeriodButtons(chartsDivRef) {
 
     $("#periodButtons").html("");
 
@@ -23,7 +23,7 @@ function addPeriodButtons() {
         // Providing the button's text with a value of the gif search at index i
         newBtn.text(period_text);
         // Adding the button to the HTML
-        $("#periodButtons").append(newBtn);
+        $("#periodButtons" + chartsDivRef).append(newBtn);
     }
 }
 

@@ -39,14 +39,17 @@ function getTickerHistData(tickerData, period) {
         // After data comes back from the request
         .then(function (chartResponse) {
 
-            $("#tickerChartHeader").html(tickerData);
-            addPeriodButtons();
-
             // Identifying output area for GIFs (used to distinguish between the main area and the favorites area)
             // tickerDestDiv = "tickerOutput";
             chartsCounter ++
+            if (chartsCounter > 6) {
+                chartCounter = 1;
+            } 
             var chartsDivRef = chartsLog[chartsCounter - 1];
             console.log("chartsDivRef: " + chartsDivRef);
+
+            $("#tickerChartHeader"+ chartsDivRef).html(tickerData);
+            addPeriodButtons(chartsDivRef);
 
             var ctx = document.getElementById('myChart' + chartsDivRef).getContext('2d');
             console.log("ctx: " + ctx);
