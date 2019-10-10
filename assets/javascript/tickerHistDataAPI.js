@@ -43,9 +43,13 @@ function getTickerHistData(tickerData, period) {
             addPeriodButtons();
 
             // Identifying output area for GIFs (used to distinguish between the main area and the favorites area)
-            tickerDestDiv = "tickerOutput";
+            // tickerDestDiv = "tickerOutput";
+            chartsCounter ++
+            var chartsDivRef = chartsLog[chartsCounter - 1];
+            console.log("chartsDivRef: " + chartsDivRef);
 
-            var ctx = document.getElementById('myChart').getContext('2d');
+            var ctx = document.getElementById('myChart' + chartsDivRef).getContext('2d');
+            console.log("ctx: " + ctx);
 
             for (var i = (chartResponse.prices.length - 1); i > 0; i--) {
                 priceResults.push(chartResponse.prices[i].close);
@@ -73,8 +77,6 @@ function getTickerHistData(tickerData, period) {
                         yAxisID: 'A',
                         backgroundColor: 'green',
                         data: priceResults,
-
-                        // Changes this dataset to become a line
                         type: 'line'
                     }],
                     labels: dayDate

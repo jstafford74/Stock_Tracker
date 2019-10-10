@@ -1,19 +1,10 @@
 // Writing the data selected to the DOM
 function populateTickerDiv(results, destDiv) {
 
-    // Clear favorites div before populating (to ensure no duplicates are displayed)
-    if (destDiv === "favOutput") {
-        $("#favOutput").html("");
-    }
-
-    // Looping through each result item
-    // for (var i = 0; i < results.length; i++) {
-
     // Creating and storing a div tag
     var outputDiv = $("<div>");
 
     // Creating a paragraph tag with the result item's rating
-    // var tickerP = $("<p>").text("Title: " + results[i].title);
     var outputP = $("<p>").text("Ticker: " + results);
     outputP.append("<br/>" + results);
 
@@ -44,17 +35,4 @@ function populateTickerDiv(results, destDiv) {
     // tickerDiv.append("<br/>");
     // tickerDiv.append(tickerImg);
     // tickerDiv.append("<br/>");
-
-    // //Do not show 'Save to favorites' button in Favs pane
-    // if (destDiv === "favOutput") {
-    // } else {
-    //     tickerDiv.append(favBtn);
-    // }
-
-    // Prependng the tickerDiv to the HTML page in the "#tickerOutput" div
-    if (destDiv === "favOutput") {
-        $("#favOutput").prepend(outputDiv);
-    } else {
-            $("#tickerOutput").prepend(outputDiv);
-    }
 }

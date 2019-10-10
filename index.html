@@ -62,15 +62,6 @@
   </div>
   <br />
   <div class="container">
-    <div id="favsContainer" class="card card-default">
-      <div class="row">
-        <button id="playFavs" class="btn btn-success">Play Favorites</button>
-      </div>
-      <div id="favOutput" class="row"></div>
-    </div>
-  </div>
-  <br />
-  <div class="container">
     <div id="marketOutput" class="card card-default">
       <div class="row">
         <div>Market Data:</div>
@@ -80,9 +71,29 @@
   <br />
   <div class="container">
     <div id="tickerOutput" class="card card-default">
-      <div class="row" id="tickerChartHeader"></div>
-      <div class="row" id="periodButtons"></div>
-      <canvas id="myChart" width="200" height="200"></canvas>
+      <div class="row" id="graphRow1">
+        <div class="col-sm-12 col-md-6 col-lg-4">
+          <div class="row" id="tickerChartHeader1-1"></div>
+          <div class="row" id="periodButtons"></div>
+          <div class="row" id="tickerChart1-1">
+            <canvas id="myChart1-1" width="200" height="200"></canvas>
+          </div>
+        </div>
+        <div class="col-sm-12 col-md-6 col-lg-4">
+          <div class="row" id="tickerChartHeader1-2"></div>
+          <div class="row" id="periodButtons"></div>
+          <div class="row" id="tickerChart1-2">
+            <canvas id="myChart1-2" width="200" height="200"></canvas>
+          </div>
+        </div>
+        <div class="col-sm-12 col-md-6 col-lg-4">
+          <div class="row" id="tickerChartHeader1-3"></div>
+          <div class="row" id="periodButtons"></div>
+          <div class="row" id="tickerChart1-3">
+            <canvas id="myChart1-3" width="200" height="200"></canvas>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -94,6 +105,7 @@
   <script src="assets/javascript/populateMarketDiv.js"></script>
   <script src="assets/javascript/populateTickerDiv.js"></script>
   <script src="assets/javascript/addPeriodButtons.js"></script>
+  <script src="assets/javascript/selectChartDiv.js"></script>
 
 
   <script type="text/javascript"></script>
@@ -105,6 +117,8 @@
 
     var tickerData = "";
     var marketDataPulled = false;
+    var chartsLog = ["1-1", "1-2", "1-3", "2-1", "2-2", "2-3"];
+    var chartsCounter = 0;
 
     // When the Search button is clicked...
     $(document.body).on("click", ".newTicker", function () {
