@@ -48,7 +48,6 @@ function getTickerHistData(tickerData, period, requestType, chartsDivNum) {
                 chartsDivRef = chartsDivNum;
             } else {
                 chartsCounter++
-                debugger;
                 if (chartsCounter > 6) {
                     chartCounter = 1;
                 } 
@@ -58,9 +57,9 @@ function getTickerHistData(tickerData, period, requestType, chartsDivNum) {
 
             $("#tickerChartHeader" + chartsDivRef).html(tickerData);
 
-            debugger;
-
-            addPeriodButtons(chartsDivRef);
+            if (requestType != "periodSwitch") {
+                addPeriodButtons(chartsDivRef);
+            }
 
             var ctx = document.getElementById('myChart' + chartsDivRef).getContext('2d');
             console.log("ctx: " + ctx);
